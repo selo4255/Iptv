@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Canlı TV Yayınları</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+  <h1>Canlı TV Yayınları</h1>
+
+  <div>
+    <h2>ATV</h2>
+    <video id="atv" width="640" height="360" controls></video>
+  </div>
+
+  <div>
+    <h2>beIN Sports Haber</h2>
+    <video id="bein" width="640" height="360" controls></video>
+  </div>
+
+  <div>
+    <h2>CNN Türk</h2>
+    <video id="cnn" width="640" height="360" controls></video>
+  </div>
+
+  <div>
+    <h2>Cartoon Network</h2>
+    <video id="cartoon" width="640" height="360" controls></video>
+  </div>
+
+  <div>
+    <h2>Disney Channel</h2>
+    <video id="disney" width="640" height="360" controls></video>
+  </div>
+
+  <div>
+    <h2>NOW TV</h2>
+    <video id="nowtv" width="640" height="360" controls></video>
+  </div>
+
+  <script>
+    function loadStream(videoId, streamUrl) {
+      var video = document.getElementById(videoId);
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = streamUrl;
+        video.addEventListener('loadedmetadata', function () {
+          video.play();
+        });
+      }
+    }
+
+    loadStream('atv', 'https://yayin2.canlitv.fun/livetv/atv.stream/playlist.m3u8');
+    loadStream('bein', 'https://canlitvulusal3.xyz/live/beinsportshaber/index.m3u8');
+    loadStream('cnn', 'https://live.duhnet.tv/S2/HLS_LIVE/cnnturknp/track_4_1000/playlist.m3u8');
+    loadStream('cartoon', 'https://amg01448-samsungin-cartoonnw-samsungin-1y8kz.amagi.tv/playlist/amg01448-samsungin-cartoonnw-samsungin/playlist.m3u8');
+    loadStream('disney', 'http://38.96.178.201/live/Disney/index.m3u8');
+    loadStream('nowtv', 'https://www.nowtv.com.tr/canli-yayin');
+  </script>
+</body>
+</html>
